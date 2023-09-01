@@ -1,5 +1,5 @@
-import styles from "~/tailwind.css";
 import type { LinksFunction } from "@remix-run/node";
+
 import {
   Links,
   LiveReload,
@@ -9,9 +9,23 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+import styles from "~/tailwind.css";
+import { setup } from "twind";
+import { virtualSheet, getStyleTag } from "twind/sheets";
+
+const sheet = virtualSheet();
+setup({ sheet });
+
+const styleTag = getStyleTag(sheet);
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: styleTag },
+];
 
 export default function App() {
+  sheet.reset();
+
   return (
     <html lang="en">
       <head>

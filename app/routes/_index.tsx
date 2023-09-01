@@ -1,3 +1,5 @@
+import { tw } from "twind";
+
 export default function Index() {
-  return <div className="text-red-500">Hello world</div>;
+  return <div className={tw`text-red-300`}>Hello world</div>;
 }
